@@ -1,0 +1,32 @@
+---
+title: "Team"
+author: "Stephanie Femrite"
+date: "2/9/2020"
+output: html_document
+---
+
+#1)
+choco <- read.csv("https://xdaiisu.github.io/ds202materials/hwlabs/choco.csv")
+nrow(choco)
+# There were 1852 chocolate bars rated.
+
+#2)
+rating <- choco$Rating
+year <- choco$Review.Date
+tab <- table(year)
+chart <-as.data.frame(tab)
+year <- (2006:2017)
+barplot(chart$Freq, names.arg = year, main = 'Ratings per Year', xlab = 'Year', ylab = 'Number of Ratings')
+
+#3)
+location <- table(choco$Company.Location)
+locdf <- as.data.frame(location)
+head(locdf[order(locdf$Freq, decreasing = TRUE),], 3)
+
+data <- choco[,choco$Company.Location == 'U.S.A'| choco$Company.Location =='France'|choco$Company.Location =='Canada]
+
+data1 <- choco[choco$Company.Location == "U.S.A",]
+
+
+
+
