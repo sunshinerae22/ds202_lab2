@@ -1,0 +1,40 @@
+---
+title: "Individual 2"
+author: "Britt Bovbjerg"
+date: "2/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r, echo=FALSE}
+choco <- read.csv("https://xdaiisu.github.io/ds202materials/hwlabs/choco.csv")
+ratings <- choco$Rating
+cacao <- choco$Cocoa.Pct
+```
+
+
+```{r ratings, echo=FALSE}
+hist(ratings)
+```
+
+The historgram of chocolate ratings shows a unimodel distribution centered at 3.5 that looks roughly normal. There appear to be outliers to the right. 
+
+```{r choco, echo=FALSE}
+plot(choco$Cocoa.Pct,choco$Rating, main="Ratings by Cocoa Percent", xlab="Coca Percent", ylab="Ratings")
+coco.lm = lm(choco$Rating~choco$Cocoa.Pct)
+abline(coco.lm)
+coco.lm
+```
+
+r^2 value: 
+
+```{r coco.lm, echo=FALSE}
+summary(coco.lm)$r.squared
+```
+
+There seems to be no realtionship between ratings and cocao percent, the coeficient is <.02 with an r-squared value of .026 which means only .026% of the variation of ratings is explained by cocao percent.  
