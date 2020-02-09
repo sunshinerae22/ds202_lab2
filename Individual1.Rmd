@@ -1,0 +1,18 @@
+---
+title: "Individual 1"
+author: "Stephanie Femrite"
+date: "2/5/2020"
+output: html_document
+---
+
+choco <- read.csv("https://xdaiisu.github.io/ds202materials/hwlabs/choco.csv")
+head(choco)
+rating <- choco[,'Rating']
+hist(rating)
+1) The histogram is unimodal, mostly symmetrical with one outlier
+
+cocoa <- choco[,'Cocoa.Pct']
+plot(cocoa, rating)
+abline(lm(rating~cocoa), col = 'red')
+
+2) It looks like there is a slight negative correlation between the ratings and the percentage of cacao in the chocolate, but that could also be attributed to other factors.
