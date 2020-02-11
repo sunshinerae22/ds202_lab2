@@ -5,28 +5,64 @@ date: "2/9/2020"
 output: html_document
 ---
 
-#1)
+1)
+```{r}
 choco <- read.csv("https://xdaiisu.github.io/ds202materials/hwlabs/choco.csv")
 nrow(choco)
-# There were 1852 chocolate bars rated.
+```
+There were 1852 chocolate bars rated.
 
-#2)
+2)
+```{r}
 rating <- choco$Rating
 year <- choco$Review.Date
 tab <- table(year)
 chart <-as.data.frame(tab)
 year <- (2006:2017)
 barplot(chart$Freq, names.arg = year, main = 'Ratings per Year', xlab = 'Year', ylab = 'Number of Ratings')
+```
+The number of ratings mostly increases by year until 2017 when it sigfinicantly decreases. 
 
-#3)
+3)
+```{r}
 location <- table(choco$Company.Location)
 locdf <- as.data.frame(location)
 head(locdf[order(locdf$Freq, decreasing = TRUE),], 3)
 
-data <- choco[,choco$Company.Location == 'U.S.A'| choco$Company.Location =='France'|choco$Company.Location =='Canada]
+```
+The 3 locations with the most ratings are the U.S.A, France, and Canada. 
 
-data1 <- choco[choco$Company.Location == "U.S.A",]
+```{r}
+topThree <- choco[choco$Company.Location == "U.S.A."| choco$Company.Location =="France"|choco$Company.Location =="Canada",]
+avCount <- aggregate(topThree[,7], list(topThree$Company.Location), mean)
+avCount
+barplot(avCount$x, names.arg=c("Canada", "France", "U.S.A"), xlab = "Country", ylab = "Average Rating", ylim = c(0,5))
+```
+The average rating for Canada is the highest at 3.31, followed by France at 3.25, and the US at 3.16.
 
+Looking at a box plot of this data, the differences appear to very minimal on the rating scale of 0 to 5. 
 
+4)
+How does bean type effect rating for the top 4 most common beans? 
 
+5) 
+```{r}
+beanFrame <- as.data.frame(table(choco$Bean.Type))
 
+head(beanFrame[order(beanFrame$Freq, decreasing = TRUE),],5)
+```
+The top four most common beans are the Trinitario, the Criollo, the Forastero, and the Forastero (Nacional). (the first row is blank because it's the N/A values)
+
+```{r}
+topFour <- choco[choco$Bean.Type == "Trinitario" | choco$Bean.Type == "Criollo" | choco$Bean.Type == "Forastero"| choco$Bean.Type == "Forastero (Nacional)",]
+
+avCount1 <- aggregate(topFour[,7], list(topFour$Bean.Type), mean)
+avCount1
+
+barplot(avCount1$x, names.arg=c("Trinitario", "Criollo", "Forastero","Forastero (N)"), xlab = "Bean Type", ylab = "Average Rating", ylim = c(0,5))                
+```
+
+The average ratings between bean types aren't that different. Forastero (Nacional) is the highest with an average rating of 3.27, followed by Trinitario and Criollo with an average rating of 3.24, and then Forastero with an average rathing of 3.10. 
+
+6) 
+Stephanie and I worked together at the library to complete all the parts of this project. We started using her computer but it was struggling to run RStudio so we switched to mine half way through. 
